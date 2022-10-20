@@ -1,0 +1,272 @@
+﻿<Window x:Class="WpfApp2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp2"
+        mc:Ignorable="d"
+        Title="Calculator" Height="544" Width="342"
+        WindowStyle="ThreeDBorderWindow" Background="WhiteSmoke">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1.9*"/>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="9*"/>
+        </Grid.RowDefinitions>
+
+        <Canvas>
+            <Label Height="45" Width="26" Canvas.Top="1.8" Canvas.Left="10">
+                <Label.Background>
+                    <ImageBrush ImageSource="/kisspng-hamburger-button-computer-icons-menu-5ae053f3cb4992.2861698115246509958327.jpg" Stretch="Uniform" Opacity="0.85" TileMode="Tile"/>
+                </Label.Background>
+            </Label>
+
+            <Label Canvas.Left="42" FontWeight="Bold" FontSize="21" Canvas.Top="1.8">
+                Standard
+            </Label>
+        </Canvas>
+
+        <Canvas Grid.Row="2" >
+            <Label Margin="-4" Canvas.Left="16" FontSize="14">
+                MC
+            </Label>
+            <Label Margin="-4" Canvas.Left="71" FontSize="14">
+                MR
+            </Label>
+            <Label Margin="-4" Canvas.Left="125" FontSize="14">
+                M+
+            </Label>
+            <Label Margin="-4" Canvas.Left="177" FontSize="14">
+                M-
+            </Label>
+            <Label Margin="-4" Canvas.Left="225" FontSize="14">
+                MS
+            </Label>
+            <Label Margin="-4" Canvas.Left="280" FontSize="14">
+                M~
+            </Label>
+        </Canvas>
+
+        <Canvas Grid.Row="3">
+            <Button Height="53" Width="76.5" Margin="5" FontSize="20" Background="WhiteSmoke">
+                %
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="7"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Height="53" Width="76.5" Margin="5" Canvas.Left="78.5" FontSize="20" Background="WhiteSmoke">
+                CE
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="7"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Height="53" Width="76.5" Margin="5" Canvas.Left="157" FontSize="20" Background="WhiteSmoke">
+                C
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="7"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Height="53" Width="76.5" Margin="5" Canvas.Left="235.5" FontSize="20" Background="WhiteSmoke">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="7"/>
+                    </Style>
+                </Button.Resources>
+                <Canvas Width="22" Height="22">
+                    <Canvas.Background>
+                        <ImageBrush ImageSource="/delete-315.png"/>
+                    </Canvas.Background>
+                </Canvas>
+            </Button>
+
+
+            <Button Height="53" Width="76.5" Margin="5" Canvas.Top="54" FontSize="22" Background="WhiteSmoke">
+                &#8543;&#128500;
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="7"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Height="53" Width="76.5" Margin="5" Canvas.Top="54" Canvas.Left="78.5" Background="WhiteSmoke" FontSize="22">
+                &#128500;&#178;
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="7"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Height="53" Width="76.5" Margin="5" Canvas.Top="54" Canvas.Left="157" FontSize="22" Background="WhiteSmoke">
+                &#178;&#x221A;&#128500;
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="7"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Height="53" Width="76.5" Margin="5" Canvas.Top="54" Canvas.Left="235.5" Background="WhiteSmoke" FontSize="30">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="7"/>
+                    </Style>
+                </Button.Resources>
+
+                <Canvas Width="30" Height="30">
+                    <Label Canvas.Bottom="-5" Content="&#247;"/>
+                </Canvas>
+            </Button>
+
+
+            <Button Height="53" Width="76.5" Margin="5" Canvas.Top="108" FontSize="20">
+                7
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="7"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Height="53" Width="76.5" Margin="5" Canvas.Top="108" Canvas.Left="78.5" FontSize="20">
+                8
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="7"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Height="53" Width="76.5" Margin="5" Canvas.Top="108" Canvas.Left="157" FontSize="20">
+                9
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="7"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Height="53" Width="76.5" Margin="5" Canvas.Top="108" Canvas.Left="235.5" FontSize="30" Background="WhiteSmoke">
+                &#xD7;
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="7"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+
+            <Button Height="53" Width="76.5" Margin="5" Canvas.Top="162" FontSize="20">
+                4
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="7"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Height="53" Width="76.5" Margin="5" Canvas.Top="162" Canvas.Left="78.5" FontSize="20">
+                5
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="7"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Height="53" Width="76.5" Margin="5" Canvas.Top="162" Canvas.Left="157" FontSize="20">
+                6
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="7"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Height="53" Width="76.5" Margin="5" Canvas.Top="162" Canvas.Left="235.5" Background="WhiteSmoke">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="7"/>
+                    </Style>
+                </Button.Resources>
+
+                <Canvas Width="30" Height="30">
+                    <Label Canvas.Bottom="-16.5" Content="-" FontSize="50"/>
+                </Canvas>
+            </Button>
+
+
+            <Button Height="53" Width="76.5" Margin="5" Canvas.Top="216" FontSize="20">
+                1
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="7"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Height="53" Width="76.5" Margin="5" Canvas.Top="216" Canvas.Left="78.5" FontSize="20">
+                2
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="7"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Height="53" Width="76.5" Margin="5" Canvas.Top="216" Canvas.Left="157" FontSize="20">
+                3
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="7"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Height="53" Width="76.5" Margin="5" Canvas.Top="216" Canvas.Left="235.5" Background="WhiteSmoke">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="7"/>
+                    </Style>
+                </Button.Resources>
+                
+                <Canvas Width="30" Height="30">
+                    <Label Canvas.Left="-2" Canvas.Bottom="-10.5" Content="+" FontSize="32"/>
+                </Canvas>
+            </Button>
+
+
+            <Button Height="53" Width="76.5" Margin="5" Canvas.Top="270" FontSize="26">
+                &#8314;&#8725;&#8331;
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="7"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Height="53" Width="76.5" Margin="5" Canvas.Top="270" Canvas.Left="78.5" FontSize="20">
+                0
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="7"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Height="53" Width="76.5" Margin="5" Canvas.Top="270" Canvas.Left="157" FontSize="30">
+                .
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="7"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Height="53" Width="76.5" Margin="5" Canvas.Top="270" Canvas.Left="235.5" FontSize="33" Background="WhiteSmoke">
+                =
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="7"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </Canvas>
+    </Grid>
+</Window>
