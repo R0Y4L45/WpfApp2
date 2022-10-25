@@ -7,26 +7,4 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="backspace-icon-23.jpg" />
-    <None Remove="delete-315.png" />
-    <None Remove="hamburger.png" />
-    <None Remove="Hamburger.svg.png" />
-    <None Remove="Hamburger_icon.svg.png" />
-    <None Remove="icon.png" />
-    <None Remove="icon1.jpg" />
-    <None Remove="kisspng-hamburger-button-computer-icons-menu-5ae053f3cb4992.2861698115246509958327.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="backspace-icon-23.jpg" />
-    <Resource Include="delete-315.png" />
-    <Resource Include="hamburger.png" />
-    <Resource Include="Hamburger.svg.png" />
-    <Resource Include="Hamburger_icon.svg.png" />
-    <Resource Include="icon.png" />
-    <Resource Include="icon1.jpg" />
-    <Resource Include="kisspng-hamburger-button-computer-icons-menu-5ae053f3cb4992.2861698115246509958327.jpg" />
-  </ItemGroup>
-
 </Project>
