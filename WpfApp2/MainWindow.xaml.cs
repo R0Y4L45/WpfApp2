@@ -7,13 +7,33 @@ namespace WpfApp2
     {
         decimal? result = null;
         decimal first, second;
-        bool mul = false, div = false, plus = false, minus = false, access = false;
-
+        bool mul = false, div = false, plus = false, minus = false;
 
         public MainWindow()
         {
             InitializeComponent();
         }
+
+        void NumberButton(string number)
+        {
+            if (textBox.Text == "Null")
+            {
+                textBox.Clear();
+                textBox.Text = number;
+            }
+            else if (textBox.Text == "0")
+            {
+                textBox.Clear();
+                textBox.Text = number.ToString();
+            }
+            else if (textBox.Text != "0")
+            {
+                if (textBox.Text.Length < 13)
+                    textBox.Text += number.ToString();
+            }
+        }
+
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -23,17 +43,23 @@ namespace WpfApp2
 
             switch (btn?.Name)
             {
-                case "btnDiv":
+                case "btnDiv": // Division
                     if (mul && textBox.Text.Length > 0)
                         goto case "btnMul";
-                    //else if (plus)
-                    //    goto case "btnMul";
-                    //else if(minus)
-                    //    goto case "btnMul";
+                    else if (plus && textBox.Text.Length > 0)
+                        goto case "btnPlus";
+                    else if (minus && textBox.Text.Length > 0)
+                        goto case "btnMinus";
 
 
                     if (!div && textBox.Text.Length > 0)
                     {
+                        if (textBox.Text == "Null")
+                        {
+                            textBox.Clear();
+                            return;
+                        }
+
                         if (decimal.TryParse(textBox.Text, out first))
                         {
                             label.Content = null;
@@ -46,12 +72,22 @@ namespace WpfApp2
                             string b;
                             if (label.Content == null)
                             {
-                                b = textBox.Text?.ToString()!.Substring(0, textBox.Text.Length - 3)!;
-                                first = decimal.Parse(b);
+                                b = textBox.Text;
+
+                                if (b.Contains('e'))
+                                {
+                                    int index = b.IndexOf('e');
+                                    b = b.Substring(0, index);
+                                    first = decimal.Parse(b);
+                                }
+                                else
+                                {
+                                    b = b.Substring(0, b.Length - 2);
+                                    first = decimal.Parse(b);
+                                }
 
                                 label!.Content = null;
                                 label.Content = b + " /";
-
                             }
                             else
                             {
@@ -59,7 +95,7 @@ namespace WpfApp2
                                 if (b.Contains('e'))
                                 {
                                     int index = b.IndexOf('e');
-                                    b = b.Substring(0, index + 1);
+                                    b = b.Substring(0, index);
                                     first = decimal.Parse(b);
                                 }
                                 else
@@ -82,12 +118,19 @@ namespace WpfApp2
                         {
                             textBox.Clear();
 
-                            result = first / second;
+                            if (second == 0)
+                                result = null;
+                            else
+                                result = first / second;
 
                             string res = result.ToString()!;
-
-                            if (res!.Length > 12)
-                                textBox.Text = res.Substring(0, 12);
+                            if (result == null)
+                                textBox.Text = "Null";
+                            else if (res.Length > 13)
+                            {
+                                textBox.FontSize = 35;
+                                textBox.Text = res.Substring(0, 13) + "e" + $"+{res.Length - 13}";
+                            }
                             else
                                 textBox.Text = res;
 
@@ -115,24 +158,25 @@ namespace WpfApp2
                         label.Content = b + " /";
                     }
                     else
-                    {
                         MessageBox.Show("Please add digits to complete operation", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
                     break;
-                case "btnMul":
+
+                case "btnMul":// Multiplication
                     if (div && textBox.Text.Length > 0)
                         goto case "btnDiv";
-                    //else if (plus)
-                    //    goto case "btnplus";
-                    //else if (minus)
-                    //    goto case "btnMul";
+                    else if (plus && textBox.Text.Length > 0)
+                        goto case "btnPlus";
+                    else if (minus && textBox.Text.Length > 0)
+                        goto case "btnMinus";
 
                     if (!mul && textBox.Text.Length > 0)
                     {
-                        mul = true;
-                        plus = false;
-                        minus = false;
-                        div = false;
+
+                        if (textBox.Text == "Null")
+                        {
+                            textBox.Clear();
+                            return;
+                        }
 
                         if (decimal.TryParse(textBox.Text, out first))
                         {
@@ -146,12 +190,22 @@ namespace WpfApp2
                             string b;
                             if (label.Content == null)
                             {
-                                b = textBox.Text?.ToString()!.Substring(0, textBox.Text.Length - 3)!;
-                                first = decimal.Parse(b);
+                                b = textBox.Text;
+
+                                if (b.Contains('e'))
+                                {
+                                    int index = b.IndexOf('e');
+                                    b = b.Substring(0, index);
+                                    first = decimal.Parse(b);
+                                }
+                                else
+                                {
+                                    b = b.Substring(0, b.Length - 2);
+                                    first = decimal.Parse(b);
+                                }
 
                                 label!.Content = null;
-                                label.Content = b + " /";
-
+                                label.Content = b + " *";
                             }
                             else
                             {
@@ -159,7 +213,7 @@ namespace WpfApp2
                                 if (b.Contains('e'))
                                 {
                                     int index = b.IndexOf('e');
-                                    b = b.Substring(0, index + 1);
+                                    b = b.Substring(0, index);
                                     first = decimal.Parse(b);
                                 }
                                 else
@@ -170,6 +224,11 @@ namespace WpfApp2
                             }
                         }
                         textBox.Clear();
+
+                        mul = true;
+                        plus = false;
+                        minus = false;
+                        div = false;
                     }
                     else if (mul && textBox.Text.Length > 0)
                     {
@@ -179,12 +238,12 @@ namespace WpfApp2
 
                             result = first * second;
 
-                            string res = result.ToString();
+                            string res = result.ToString()!;
 
-                            if (res.Length > 12)
+                            if (res.Length > 13)
                             {
                                 textBox.FontSize = 35;
-                                textBox.Text = res.Substring(0, 12) + "e" + $"+{res.Length - 12}";
+                                textBox.Text = res.Substring(0, 13) + "e" + $"+{res.Length - 13}";
                             }
                             else
                                 textBox.Text = res;
@@ -213,16 +272,243 @@ namespace WpfApp2
                         label.Content = b + " *";
                     }
                     else
-                    {
                         MessageBox.Show("Please add digits to complete operation", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
                     break;
-                case "btnC":
+
+                case "btnPlus": // addition
+                    if (mul && textBox.Text.Length > 0)
+                        goto case "btnMul";
+                    else if (div && textBox.Text.Length > 0)
+                        goto case "btnDiv";
+                    else if (minus && textBox.Text.Length > 0)
+                        goto case "btnMinus";
+
+
+                    if (!plus && textBox.Text.Length > 0)
+                    {
+                        if (textBox.Text == "Null")
+                        {
+                            textBox.Clear();
+                            return;
+                        }
+
+                        if (decimal.TryParse(textBox.Text, out first))
+                        {
+                            label.Content = null;
+                            if (textBox.Text == "0.")
+                                textBox.Text = "0";
+                            label.Content = textBox.Text + " +";
+                        }
+                        else
+                        {
+                            string b;
+                            if (label.Content == null)
+                            {
+                                b = textBox.Text;
+
+                                if (b.Contains('e'))
+                                {
+                                    int index = b.IndexOf('e');
+                                    b = b.Substring(0, index);
+                                    first = decimal.Parse(b);
+                                }
+                                else
+                                {
+                                    b = b.Substring(0, b.Length - 2);
+                                    first = decimal.Parse(b);
+                                }
+
+                                label!.Content = null;
+                                label.Content = b + " +";
+
+                            }
+                            else
+                            {
+                                b = label.Content.ToString()!;
+                                if (b.Contains('e'))
+                                {
+                                    int index = b.IndexOf('e');
+                                    b = b.Substring(0, index + 1);
+                                    first = decimal.Parse(b);
+                                }
+                                else
+                                {
+                                    b = b.Substring(0, b.Length - 2);
+                                    first = decimal.Parse(b);
+                                }
+                            }
+                        }
+                        textBox.Clear();
+
+                        mul = false;
+                        plus = true;
+                        minus = false;
+                        div = false;
+                    }
+                    else if (plus && textBox.Text.Length > 0)
+                    {
+                        if (decimal.TryParse(textBox.Text, out second))
+                        {
+                            textBox.Clear();
+
+                            result = (first) + (second);
+
+                            string res = result.ToString()!;
+
+                            if (res!.Length > 13)
+                                textBox.Text = res.Substring(0, 13);
+                            else
+                                textBox.Text = res;
+
+                            label.Content = null;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error");
+                            label!.Content = null;
+                            first = 0;
+                            second = 0;
+                            textBox.Clear();
+                        }
+                        plus = false;
+                    }
+                    else if (!plus && textBox.Text.Length == 0 && label.Content != null)
+                    {
+                        string b;
+
+                        div = false;
+                        plus = true;
+                        minus = false;
+                        mul = false;
+                        b = label.Content.ToString()!.Substring(0, label.Content.ToString()!.Length - 2);
+                        label.Content = b + " +";
+                    }
+                    else
+                        MessageBox.Show("Please add digits to complete operation", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                    break;
+
+                case "btnMinus": // subtraction
+
+                    if (mul && textBox.Text.Length > 0)
+                        goto case "btnMul";
+                    else if (div && textBox.Text.Length > 0)
+                        goto case "btnDiv";
+                    else if (plus && textBox.Text.Length > 0)
+                        goto case "btnPlus";
+
+
+                    if (!minus && textBox.Text.Length > 0)
+                    {
+                        if (textBox.Text == "Null")
+                        {
+                            textBox.Clear();
+                            return;
+                        }
+
+                        if (decimal.TryParse(textBox.Text, out first))
+                        {
+                            label.Content = null;
+                            if (textBox.Text == "0.")
+                                textBox.Text = "0";
+                            label.Content = textBox.Text + " -";
+                        }
+                        else
+                        {
+                            string b;
+                            if (label.Content == null)
+                            {
+                                b = textBox.Text;
+
+                                if (b.Contains('e'))
+                                {
+                                    int index = b.IndexOf('e');
+                                    b = b.Substring(0, index);
+                                    first = decimal.Parse(b);
+                                }
+                                else
+                                {
+                                    b = b.Substring(0, b.Length - 2);
+                                    first = decimal.Parse(b);
+                                }
+
+                                label!.Content = null;
+                                label.Content = b + " -";
+
+                            }
+                            else
+                            {
+                                b = label.Content.ToString()!;
+                                if (b.Contains('e'))
+                                {
+                                    int index = b.IndexOf('e');
+                                    b = b.Substring(0, index + 1);
+                                    first = decimal.Parse(b);
+                                }
+                                else
+                                {
+                                    b = b.Substring(0, b.Length - 2);
+                                    first = decimal.Parse(b);
+                                }
+                            }
+                        }
+                        textBox.Clear();
+
+                        mul = false;
+                        plus = false;
+                        minus = true;
+                        div = false;
+                    }
+                    else if (minus && textBox.Text.Length > 0)
+                    {
+                        if (decimal.TryParse(textBox.Text, out second))
+                        {
+                            textBox.Clear();
+
+                            result = (first) - (second);
+
+                            string res = result.ToString()!;
+
+                            if (res!.Length > 13)
+                                textBox.Text = res.Substring(0, 13);
+                            else
+                                textBox.Text = res;
+
+                            label.Content = null;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error");
+                            label!.Content = null;
+                            first = 0;
+                            second = 0;
+                            textBox.Clear();
+                        }
+                        minus = false;
+                    }
+                    else if (!minus && textBox.Text.Length == 0 && label.Content != null)
+                    {
+                        string b;
+
+                        div = false;
+                        plus = false;
+                        minus = true;
+                        mul = false;
+                        b = label.Content.ToString()!.Substring(0, label.Content.ToString()!.Length - 2);
+                        label.Content = b + " -";
+                    }
+                    else
+                        MessageBox.Show("Please add digits to complete operation", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                    break;
+
+                case "btnC": // clear
                     textBox.Clear();
                     textBox.Text = "0";
-                    result = null; 
+                    result = null;
                     break;
-                case "btnCE":
+
+                case "btnCE": //CE
                     textBox.Clear();
                     textBox.Text = "0";
                     label.Content = null;
@@ -232,7 +518,8 @@ namespace WpfApp2
                     div = false;
                     result = null;
                     break;
-                case "btnDel":
+
+                case "btnDel": // delete
                     if (textBox.Text != "0" && textBox.Text != string.Empty)
                     {
                         textBox.Text = textBox.Text.Substring(0, textBox.Text.Length - 1);
@@ -243,153 +530,96 @@ namespace WpfApp2
                         }
                     }
                     break;
-                case "btn7":
-                    if (textBox.Text == "0")
-                    {
-                        textBox.Clear();
-                        textBox.Text = 7.ToString();
-                    }
-                    else if (textBox.Text != "0")
-                    {
-                        if (textBox.Text.Length < 12)
-                            textBox.Text += 7.ToString();
-                    }
-                    break;
-                case "btn8":
-                    if (textBox.Text == "0")
-                    {
-                        textBox.Clear();
-                        textBox.Text = 8.ToString();
-                    }
-                    else if (textBox.Text != "0")
-                    {
-                        if (textBox.Text.Length < 12)
-                        {
-                            textBox.Text += 8.ToString();
-                        }
-                    }
-                    break;
-                case "btn9":
-                    if (textBox.Text == "0")
-                    {
-                        textBox.Clear();
-                        textBox.Text = 9.ToString();
-                    }
-                    else if (textBox.Text != "0")
-                    {
-                        if (textBox.Text.Length < 12)
-                        {
-                            textBox.Text += 9.ToString();
-                        }
-                    }
-                    break;
-                case "btn4":
-                    if (textBox.Text == "0")
-                    {
-                        textBox.Clear();
-                        textBox.Text = 4.ToString();
-                    }
-                    else if (textBox.Text != "0")
-                    {
-                        if (textBox.Text.Length < 12)
-                        {
-                            textBox.Text += 4.ToString();
-                        }
-                    }
-                    break;
-                case "btn5":
-                    if (textBox.Text == "0")
-                    {
-                        textBox.Clear();
-                        textBox.Text = 5.ToString();
-                    }
-                    else if (textBox.Text != "0")
-                    {
-                        if (textBox.Text.Length < 12)
-                        {
-                            textBox.Text += 5.ToString();
-                        }
-                    }
-                    break;
-                case "btn6":
-                    if (textBox.Text == "0")
-                    {
-                        textBox.Clear();
-                        textBox.Text = 6.ToString();
-                    }
-                    else if (textBox.Text != "0")
-                    {
-                        if (textBox.Text.Length < 12)
-                        {
-                            textBox.Text += 6.ToString();
-                        }
-                    }
 
+                case "btn7":
+                    NumberButton("7");
                     break;
+
+                case "btn8":
+                    NumberButton("8");
+                    break;
+
+                case "btn9":
+                    NumberButton("9");
+                    break;
+
+                case "btn4":
+                    NumberButton("4");
+                    break;
+
+                case "btn5":
+                    NumberButton("5");
+                    break;
+
+                case "btn6":
+                    NumberButton("6");
+                    break;
+
                 case "btn1":
-                    if (textBox.Text == "0")
-                    {
-                        textBox.Clear();
-                        textBox.Text = 1.ToString();
-                    }
-                    else if (textBox.Text != "0")
-                    {
-                        if (textBox.Text.Length < 12)
-                        {
-                            textBox.Text += 1.ToString();
-                        }
-                    }
+                    NumberButton("1");
                     break;
+
                 case "btn2":
-                    if (textBox.Text == "0")
-                    {
-                        textBox.Clear();
-                        textBox.Text = 2.ToString();
-                    }
-                    else if (textBox.Text != "0")
-                    {
-                        if (textBox.Text.Length < 12)
-                        {
-                            textBox.Text += 2.ToString();
-                        }
-                    }
+                    NumberButton("2");
                     break;
+
                 case "btn3":
-                    if (textBox.Text == "0")
-                    {
-                        textBox.Clear();
-                        textBox.Text = 3.ToString();
-                    }
-                    else if (textBox.Text != "0")
-                    {
-                        if (textBox.Text.Length < 12)
-                        {
-                            textBox.Text += 3.ToString();
-                        }
-                    }
+                    NumberButton("3");
                     break;
+
                 case "btn0":
                     if (textBox.Text != "0")
-                    {
-                        if (textBox.Text.Length < 12)
-                        {
+                        if (textBox.Text.Length < 13)
                             textBox.Text += 0.ToString();
+                        else
+                            textBox.Text = "0";
+                    break;
+
+                case "btnMinusPlus":
+                    decimal number;
+                    if (textBox.Text != "0" && textBox.Text != "Null")
+                    {
+                        if (textBox.Text.Contains('e'))
+                        {
+                            textBox.Text = textBox.Text.Substring(0, textBox.Text.IndexOf('e'));
+                            number = decimal.Parse(textBox.Text);
+                            textBox.Text = (-1 * number).ToString();
+                        }
+                        else if (textBox.Text.Contains(' '))
+                        {
+                            textBox.Text = textBox.Text.Substring(0, textBox.Text.IndexOf(' '));
+                            number = decimal.Parse(textBox.Text);
+                            textBox.Text = (-1 * number).ToString();
+                        }
+                        else
+                        {
+                            number = decimal.Parse(textBox.Text);
+                            textBox.Text = (-1 * number).ToString();
                         }
                     }
-                    else
-                        textBox.Text = "0";
                     break;
+
                 case "btnPoint":
-                    if (!textBox.Text.Contains('.'))
+                    if (textBox.Text == string.Empty || textBox.Text == "0")
+                        textBox.Text = "0.";
+                    else if (!textBox.Text.Contains('.'))
                     {
-                        textBox.Text += ".";
+                        decimal dec;
+                        dec = decimal.Parse(textBox.Text);
+                        textBox.Text = dec.ToString() + ".";
                     }
                     break;
+
                 case "btnEqual":
                     if (mul)
                         goto case "btnMul";
                     else if (div)
                         goto case "btnDiv";
+                    else if (plus)
+                        goto case "btnPlus";
+                    else if (minus)
+                        goto case "btnMinus";
+
                     break;
             }
         }
